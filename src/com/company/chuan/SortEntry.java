@@ -10,5 +10,8 @@ public class SortEntry {
         SortExample.rank(insertSort, source);
         ShellSort shellSort = new ShellSort();
         SortExample.rank(shellSort, source);
+
+        QuickSort quickSort = new QuickSort();
+        SortExample.rank(quickSort, source);
     }
 }
