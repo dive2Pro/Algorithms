@@ -8,6 +8,8 @@ public class SortEntry {
         SortExample.rank(selectSort, source);
         InsertSort insertSort = new InsertSort();
         SortExample.rank(insertSort, source);
+        ShellSort shellSort = new ShellSort();
+        SortExample.rank(shellSort, source);
 
     }
 }
