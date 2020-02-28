@@ -13,5 +13,7 @@ public class SortEntry {
         Merge mergeSort = new Merge();
         SortExample.rank(mergeSort, source);
 
+        QuickSort quickSort = new QuickSort();
+        SortExample.rank(quickSort, source);
     }
 }
