@@ -2,10 +2,12 @@ package com.company.chuan;
 
 public abstract class SortExample {
     public static void rank(SortExample sortInstance, Comparable[] a) {
+
+        System.out.println("-------------- " + sortInstance.getClass().getName() + " ------------ ");
         Comparable[] sorted = sortInstance.sort(a);
         assert sortInstance.isSorted(sorted);
         sortInstance.show(sorted);
-        System.out.println("-------------- " + sortInstance.getClass().getName() + " ------------ ");
+        System.out.println("-------------- " + sortInstance.getClass().getName() + " END ------------ ");
     }
 
     public abstract Comparable[] sort(Comparable[] a) ;

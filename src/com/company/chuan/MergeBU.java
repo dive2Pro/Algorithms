@@ -24,11 +24,33 @@ public class MergeBU extends SortExample {
         // 注意 size + size ， 这一步决定第二个数组不会抢到第一个数组的值
         for(int sz = 1; sz < N; sz += sz) {
             for(int lo = 0; lo < N - sz ; lo += sz + sz) {
-//                merge(source, lo, lo + sz - 1, Math.min(lo + sz + sz -1 , N -1));
+                merge(source, lo, lo + sz - 1, Math.min(lo + sz + sz -1 , N -1));
             }
         }
 
         return source;
+    }
+
+    public void merge(Comparable[] a, int lo, int mid, int hi) {
+        if(lo >= hi) return;
+        int i = lo, j = mid + 1;
+
+        for(int k = lo; k <= hi ; k ++) {
+            aux[k] = a [k];
+        }
+
+        for(int k = lo; k <= hi ; k ++) {
+            if(i > mid) {
+                a[k] = aux[j ++];
+            } else if( j > hi) {
+                a[k] = aux[i ++];
+            } else if(less(aux[i], aux[j])) {
+                a[k] = aux[i++];
+            } else {
+                a[k] = aux[j++];
+            }
+        }
+
     }
 
 }

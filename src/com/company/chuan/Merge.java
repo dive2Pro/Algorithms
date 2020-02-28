@@ -17,7 +17,6 @@ public class Merge extends SortExample {
         }
 
 
-
         for(int k = lo; k <= hi; k++ ) {
             if( l > mid) {
                 a[k] = aux[m++];
