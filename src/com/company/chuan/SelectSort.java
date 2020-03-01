@@ -11,13 +11,13 @@ public class SelectSort extends SortExample {
      * @return
      */
     @Override
-    public Comparable[] sort(Comparable[] a) {
-        Comparable[] source = a.clone();
+    public Comparable[] sort(Comparable[] source) {
+//        Comparable[] source = a.clone();
 
-        for(int i = 0; i < source.length - 1 ; i ++) {
+        for(int i = 0; i < source.length - 1  ; i ++) {
             int min = i;
-            for(int j = i + 1; j < source.length; j ++ ) {
-                if(less(source[j], source[min])) {
+            for(int j = i + 1; j < source.length ; j ++ ) {
+                if(source[j] != null && less(source[j], source[min])) {
                     min = j;
                 }
             }
