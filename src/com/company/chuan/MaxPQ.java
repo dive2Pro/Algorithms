@@ -49,7 +49,7 @@ class SelfControlArray<Item extends Comparable<Item>> {
     }
 
     public int size() {
-        return N;
+        return N - 1;
     }
 
     public Item[] getSource() {
@@ -58,6 +58,10 @@ class SelfControlArray<Item extends Comparable<Item>> {
 
     public Item peek() {
         return items[N - 1];
+    }
+
+    public Item get(int index) {
+        return items[index];
     }
 }
 
