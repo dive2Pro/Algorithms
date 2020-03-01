@@ -61,9 +61,10 @@ class SelfControlArray<Item extends Comparable<Item>> {
     }
 }
 
+
 public class MaxPQ<Key extends Comparable<Key>>{
     SelfControlArray<Key> source;
-    SelectSort sort = new SelectSort();
+    private SelectSort sort = new SelectSort();
     public MaxPQ(int max) {
         source = new SelfControlArray<>(max);
     }
@@ -98,6 +99,38 @@ public class MaxPQ<Key extends Comparable<Key>>{
 
     public static void main(String[] args) {
         MaxPQ maxPQ= new MaxPQ<String>(10);
+        String[] ss = "qwertyuioasdzxcghjbmp".split("");
+        for(String s: ss) {
+            maxPQ.insert(s);
+        }
+        System.out.println(maxPQ.max());
+        maxPQ.delMax();
+        System.out.println(maxPQ.max());
+    }
+}
+
+class OrderedMaxPQ<Key extends Comparable<Key>> extends MaxPQ<Key> {
+    private InsertSort sort = new InsertSort();
+    public OrderedMaxPQ(int max) {
+        super(max);
+    }
+
+    void insert(Key v) {
+        source.push(v);
+        Key[] keys = source.getSource();
+        sort.sort(keys);
+    }
+
+    Key max() {
+        return source.peek();
+    }
+
+    Key delMax() {
+        return source.pop();
+    }
+
+    public static void main(String[] args) {
+        MaxPQ maxPQ= new OrderedMaxPQ(10);
         String[] ss = "qwertyuioasdzxcghjbmp".split("");
         for(String s: ss) {
             maxPQ.insert(s);

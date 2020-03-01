@@ -14,11 +14,10 @@ package com.company.chuan;
  */
 public class InsertSort extends SortExample {
     @Override
-    public Comparable[] sort(Comparable[] a) {
-        Comparable[] source = a.clone();
+    public Comparable[] sort(Comparable[] source) {
 
         for(int i = 0 ; i < source.length; i ++) {
-            for(int j = i ; j > 0 && less(source[j], source[j - 1]) ; j --) {
+            for(int j = i ; j > 0 && source[j] != null && less(source[j], source[j - 1]) ; j --) {
                 exch(source, j, j - 1);
             }
         }
