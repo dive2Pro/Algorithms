@@ -20,5 +20,10 @@ public class SortEntry {
 
         Quick3Way quick3Way = new Quick3Way();
         SortExample.rank(quick3Way, source);
+
+        StackSort stackSort = new StackSort();
+
+        Comparable[] stackSource = new Integer[] { 0, 2, 1,1,2, 8, 6, 7, 0, 0, 4, 3, 9, 5};
+        SortExample.rank(stackSort, stackSource);
     }
 }
