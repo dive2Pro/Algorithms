@@ -42,9 +42,9 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
     }
 
     public void insert(int k, Item item) {
-        sort[k] = ++N;
+        sort[++N] = k;
         items[k] = item;
-        indexs[N] = k;
+        indexs[k] = N;
         swim(N);
         sortIndex();
     }
@@ -57,29 +57,51 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
     }
 
     /**
+     *
+     * @param k Index
+     * @return 二叉堆下最小的
+     */
+    private int findSmallestFrom(int k) {
+        int sortK = k;
+
+        while( sortK  * 2 <= N) {
+            int j = sortK * 2;
+//            if(j + 10 <= N && !less(j, j + 1)) j ++;
+            sortK *= 2;
+        }
+
+        return sortK;
+    }
+
+    /**
      * 找到该节点下最小的， 与其交换
      *
      * @param k Index
      * @return 删除的索引指向的值
      *
      */
-    public Item delete(int k) {
-        int pqIndex = sort[k];
+    public void delete(int k) {
+        int pqIndex = indexs[k];
         Item deleted = items[k];
         // 和最小的交换 再 sink
-        // TODO： 找到最小的
-        exch(pqIndex, N);
-
+//        int smallest = findSmallestFrom(pqIndex);
+        int smallest = N;
+        exch(pqIndex, smallest);
         items[k] = null;
         indexs[k] = 0;
         sort[N--] = 0;
         sink(pqIndex);
-
-        return deleted;
+        sortIndex();
     }
 
     public void change(int k, Item item) {
         // 改变后
+        items[k] = item;
+        int sortIndex = indexs[k];
+        exch(sortIndex, N);
+        sink(sortIndex);
+        swim(N);
+        sortIndex();
         // 1. swim
         // 2. sink
         // 3. sortIndex
@@ -89,8 +111,10 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
         return indexs[k] != 0;
     }
 
-    public Item delMin() {
-        return delete(1);
+    public int delMin() {
+        int min = sort[1];
+        delete(1);
+        return min;
     }
 
 
@@ -136,7 +160,7 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
     private void sink(int k) {
         while (k * 2 <= N) {
             int j = k * 2;
-            if (less(j, j + 1)) j++; // 找出两个子节点中较大的一个
+            if ( less(j, j + 1)) j++; // 找出两个子节点中较大的一个
             if (!less(k, j)) break; // 不可下沉
             exch(j, k);
             k = j;
@@ -150,13 +174,34 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
      * @return 该位置在索引中的大小比较
      */
     private boolean less(int i, int k) {
-        int pqIndex1 = indexs[i];
-        int pqIndex2 = indexs[k];
+
+        int pqIndex1 = sort[i];
+        int pqIndex2 = sort[k];
 
         Item i1 = items[pqIndex1];
         Item i2 = items[pqIndex2];
 
         return i1.compareTo(i2) < 0;
+    }
+
+    public static void main(String[] args){
+        IndexMinPQ indexMinPQ = new IndexMinPQ<>(20);
+
+        indexMinPQ.insert(3, "J" );
+        indexMinPQ.insert(10, "D" );
+        indexMinPQ.insert(13, "X" );
+        indexMinPQ.insert(6, "Z" );
+        indexMinPQ.insert(8, "A" );
+        indexMinPQ.insert(18, "K" );
+
+        assert indexMinPQ.minIndex() == 6;
+        System.out.println(indexMinPQ.minIndex());
+        assert indexMinPQ.delMin() == 6;
+        indexMinPQ.delete(6);
+        assert indexMinPQ.minIndex() == 13;
+
+        indexMinPQ.change(8, "Y");
+        assert indexMinPQ.minIndex() == 8;
     }
 
 }
