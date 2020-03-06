@@ -1,8 +1,8 @@
 package com.company.chuan;
 
-import java.util.Queue;
+import java.util.Arrays;
 
-public class BinarySearchST<Key extends Comparable<Key>, Value> {
+public class BinarySearchST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, Value> {
     private int N;
     private Key[] keys;
     private Value[] values;
@@ -10,10 +10,6 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     public BinarySearchST(int capacity) {
         keys = (Key[]) new Comparable[capacity];
         values = (Value[]) new Object[capacity];
-    }
-
-    int size() {
-        return N;
     }
 
     public Value get(Key key) {
@@ -47,8 +43,23 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         N ++;
     }
 
-    public void delete(Key key) {
+    public Key floor(Key key) {
+        int i = rank(key);
 
+        if( i  > 0 ) {
+            return keys[i - 1];
+        } else {
+            return keys[i];
+        }
+    }
+
+    public void delete(Key key) {
+        int i = rank(key);
+        for( int j = i + 1 ; j < N - 1 ; j++) {
+            keys[j] = keys[j - 1];
+            values[j] = values[j - 1];
+        }
+        N --;
     }
 
 
@@ -84,6 +95,20 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
 
     public Key select(int i) {
         return keys[i];
+    }
+
+    @Override
+    public Iterable<Key> keys(Key lo, Key hi) {
+        int i  = rank(lo);
+        int j  = rank(hi);
+
+        Key[] it = (Key[]) new Comparable[ j - i + 1];
+
+        for( int k = 0 ; i < j ; i ++) {
+            it[k++] = keys[i];
+        }
+
+        return Arrays.asList(it);
     }
 
     public Key ceiling(Key key) {
