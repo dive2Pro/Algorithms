@@ -281,7 +281,7 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         root = delete(root, key);
     }
 
-    private Node delete(Node node, Key key) {
+    private Node delete2(Node node, Key key) {
         // 1. 找到 child [left, right] 为node
         // 2. t = key;
         // 3. 找到右边最小的结点 x = min(t.right);
@@ -342,6 +342,31 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         return node;
     }
 
+    private Node delete(Node node, Key key) {
+        if(node == null) {
+            return null;
+        }
+
+        int cmp = key.compareTo(node.key);
+
+        if(cmp > 0) {
+            node.right = delete(node.right, key);
+        } else if(cmp < 0) {
+            node.left = delete(node.left, key);
+        } else {
+            if(node.right == null) return node.left;
+            if(node.left == null) return node.right;
+            Node t = node;
+            node = min(t.right);
+            node.right = deleteMin(t.right);
+            node.left = t.left;
+        }
+
+        node.N = size(node.left) + size(node.right) + 1;
+
+        // 这个返回要注意, 这一点让  node.left = delete(node.left, key) ; 是正确的
+        return node;
+    }
     public static void main(String[] args) {
         String[] source = "SEARCHEXAMPLE".split("");
         BST<String, Integer> bst = new BST<>();
