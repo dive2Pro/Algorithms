@@ -2,7 +2,6 @@ package com.company.chuan;
 
 public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, Value> {
 
-
     class Node {
         Node left;
         Node right;
@@ -38,7 +37,9 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         } else {
             node.value = value;
         }
+
         node.N = size(node.left) + size(node.right) + 1;
+
         return node;
     }
 
@@ -67,14 +68,14 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
 
     @Override
     public Key min() {
-        return min(root);
+        return min(root).key;
     }
 
-    private Key min(Node node) {
+    private Node min(Node node) {
         if (node.left != null) {
             return min(node.left);
         } else {
-            return node.key;
+            return node;
         }
     }
 
@@ -85,7 +86,7 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
 
     private Key max(Node node) {
         if (node.right != null) {
-            return max(node.left);
+            return max(node.right);
         } else {
             return node.key;
         }
@@ -160,19 +161,185 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         return node.key;
     }
 
+    /**
+     * 返回给定键的排名
+     * @param key
+     * @return
+     */
     @Override
     public int rank(Key key) {
-        return 0;
+        return rank(root, key);
     }
 
+    private int rank(Node node, Key key) {
+        if(node == null) {
+            return 0;
+        }
+        int cmp = key.compareTo(node.key);
+        if( cmp > 0) {
+            return rank(node.right, key) + size(node.left) + 1;
+        } else if( cmp < 0) {
+            return rank(node.left, key);
+        }
+        return size(node.left);
+    }
+
+    private Node findBy(Node node, Key key) {
+        if(node == null) {
+            return null;
+        }
+        int cmp = key.compareTo(node.key);
+        if( cmp > 0) {
+            return findBy(node.right, key);
+        } else if( cmp < 0) {
+            return findBy(node.left, key);
+        }
+        return node;
+    }
+
+
+    /**
+     * 在树中正好有 k 个小于它的键
+     *
+     * @param k
+     * @return
+     */
     @Override
     public Key select(int k) {
-        return null;
+        return select(root, k).key;
+    }
+
+    private Node select(Node node, int k) {
+        if(node == null) {
+            return node;
+        }
+
+        int n = size(node.left);
+
+        if (n > k) {
+            return select(node.left, k);
+        } else if ( n < k) {
+            return select(node.right, k - n - 1);
+        }
+
+        return node;
     }
 
     @Override
     public Iterable<Key> keys(Key lo, Key hi) {
         return null;
+    }
+
+    public void deleteMax() {
+        root = deleteMax(root);
+    }
+
+    private Node deleteMax(Node node) {
+        if(node.right != null) {
+            if(node.right.right == null) {
+                node.right = node.right.left;
+            } else {
+                deleteMin(node.right);
+            }
+
+        } else {
+            node = node.left;
+        }
+
+        node.N = size(node.left)  + size(node.right) + 1;
+
+        return node;
+
+    }
+
+
+    @Override
+    public void deleteMin() {
+        root = deleteMin(root);
+    }
+
+    private Node deleteMin(Node node) {
+
+        if(node.left != null) {
+            if(node.left.left == null) {
+                node.left = node.left.right;
+            } else {
+                deleteMin(node.left);
+            }
+
+        } else {
+            node = node.right;
+        }
+
+        node.N = size(node.left)  + size(node.right) + 1;
+
+        return node;
+    }
+
+    @Override
+    public void delete(Key key) {
+        root = delete(root, key);
+    }
+
+    private Node delete(Node node, Key key) {
+        // 1. 找到 child [left, right] 为node
+        // 2. t = key;
+        // 3. 找到右边最小的结点 x = min(t.right);
+        // 4. 删除 t.right 结点上最小的点, 这个点就是 第三步的点 x; r = deleteMin(t.right)
+        // 5. x.left = t.left
+        // 6. x.right = r;
+        // 7. node[left, right] = x;
+
+
+
+        int cmp = key.compareTo(node.key);
+
+        if( cmp > 0) {
+            // 检查 parent.right 是否等于 key
+            if(key.compareTo(node.right.key) == 0) {
+                // 如果等于 就在这一层处理
+                // 如果等于 就在这一层处理
+                Node t = node.right;
+                Node x = min(t.right);
+                if(x == null) {
+                    x = t.left;
+                } else {
+                    Node r = deleteMin(t.right);
+                    x.left = t.left;
+                    x.right = r;
+                    x.N = size(x.left) + size(x.right) + 1;
+                }
+                node.left = x;
+            } else {
+                // 如果不等于 就在下一层处理
+                delete(node.right, key);
+            }
+
+        } else if (cmp < 0) {
+            if(key.compareTo(node.left.key) == 0) {
+                // 如果等于 就在这一层处理
+                Node t = node.left;
+                Node x = min(t.right);
+                if(x == null) {
+                    x = t.left;
+                } else {
+                    Node r = deleteMin(t.right);
+                    x.left = t.left;
+                    x.right = r;
+                    x.N = size(x.left) + size(x.right) + 1;
+                }
+                node.left = x;
+            } else {
+                // 如果不等于 就在下一层处理
+                delete(node.left, key);
+            }
+        } else {
+            node = node.right;
+        }
+
+
+        node.N = size(node.left)  + size(node.right) + 1;
+        return node;
     }
 
     public static void main(String[] args) {
@@ -190,9 +357,34 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         concurrent(bst.ceiling("M"), "M");
         concurrent(bst.ceiling("A"), "A");
         concurrent(bst.ceiling("Z"), null);
+
+        System.out.println("----- select -----");
+        concurrent(bst.select(8), "S");
+        concurrent(bst.select(3), "H");
+        System.out.println("----- rank -----");
+
+        concurrent(bst.rank("S"), 8);
+        concurrent(bst.rank("H"), 3);
+
+        System.out.println("----- deleteMin -----");
+        bst.deleteMin();
+        concurrent(bst.min(), "C");
+
+        bst.deleteMin();
+        concurrent(bst.min(), "E");
+        bst.put("C", 3);
+        bst.put("A", 9);
+
+        System.out.println("----- deleteMax -----");
+        concurrent(bst.max(), "X");
+
+        System.out.println("----- delete(key) -----");
+        bst.delete("E");
+
+        concurrent(bst.max(), "X");
     }
 
-    public static void concurrent(String s1, String s2) {
+    public static void concurrent(Comparable s1, Comparable s2) {
         if(s1 == null && s2 == null){
             return;
         }
