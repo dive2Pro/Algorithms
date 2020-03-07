@@ -1,5 +1,8 @@
 package com.company.chuan;
 
+import java.util.Queue;
+import java.util.concurrent.SynchronousQueue;
+
 public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, Value> {
 
     class Node {
@@ -225,11 +228,6 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         return node;
     }
 
-    @Override
-    public Iterable<Key> keys(Key lo, Key hi) {
-        return null;
-    }
-
     public void deleteMax() {
         root = deleteMax(root);
     }
@@ -340,6 +338,50 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
 
         node.N = size(node.left)  + size(node.right) + 1;
         return node;
+    }
+
+    @Override
+    public Iterable<Key> keys() {
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key lo, Key hi) {
+
+        Queue<Key> queue = new SynchronousQueue<>();
+        keys(root, queue, lo, hi);
+        return queue;
+    }
+
+    /**
+     * 要注意整体的顺序 和 逻辑
+     *  当前的node
+     *  1. lo 比 node 要小, 当然 lo 要先入 queue  去找 node.left
+     *  2. 此时 node = parent.left 当找到 node == lo 或者已经 node = null 时 , 再检查 node 是否在 hi 的范围下
+     *  3. 都满足则 入 queue, 绝对是最小的
+     *  4. left 处理完毕, 接着处理 node 入栈
+     *  5. 再处理 node < hi 的
+     * @param node
+     * @param queue
+     * @param lo
+     * @param hi
+     */
+    private void keys(Node node, Queue<Key> queue, Key lo, Key hi) {
+        if( node == null) return;
+        int cmplo = lo.compareTo(node.key);
+        int cmphi = hi.compareTo(node.key);
+
+        if(cmplo < 0) {
+            keys(node.left, queue, lo, hi);
+        }
+
+        if(cmplo <= 0 && cmphi >= 0) {
+            queue.add(node.key);
+        }
+
+        if(cmphi > 0) {
+            keys(node.right, queue, lo, hi);
+        }
+
     }
 
     private Node delete(Node node, Key key) {
