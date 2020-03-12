@@ -23,9 +23,11 @@ public class RedBlackBinaryTree<Key extends Comparable<Key>, Value> {
         Node left;
         Node right;
 
-        public Node(Key key, Value val) {
+        public Node(Key key, Value val, boolean color) {
             this.key = key;
             this.val = val;
+            this.color = color;
+            this.N = 0;
         }
     }
 
@@ -41,7 +43,7 @@ public class RedBlackBinaryTree<Key extends Comparable<Key>, Value> {
 
     private Node put(Node node, Key key, Value value) {
         if(node == null) {
-            return new Node(key, value);
+            return new Node(key, value, RED);
         }
 
         int cmp = key.compareTo(node.key);
