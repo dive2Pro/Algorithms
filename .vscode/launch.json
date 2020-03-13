@@ -1,0 +1,92 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BST<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.BST",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IndexMinPQ<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.IndexMinPQ",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.Main",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MaxPQ<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.MaxPQ",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OrderedMaxPQ<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.OrderedMaxPQ",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RedBlackBinaryTree<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.RedBlackBinaryTree",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SortEntry<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.SortEntry",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StackMaxPQ<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.StackMaxPQ",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StdOut<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.StdOut",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TopM<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.TopM",
+            "projectName": "Algorithm_6ee76e64"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestSearch<Algorithm_6ee76e64>",
+            "request": "launch",
+            "mainClass": "com.company.chuan.graph.TestSearch",
+            "projectName": "Algorithm_6ee76e64",
+            "args": ["tinyG.txt", 0]
+        }
+    ]
+}
