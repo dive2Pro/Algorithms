@@ -5,15 +5,14 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import com.company.chuan.In;
 import com.company.chuan.StdOut;
 
 public class TestSearch {
     public static void main(String[] args) throws IOException {
-        FileInputStream fis = new FileInputStream(args[0]);
-
-        DataInputStream dis = new DataInputStream(new BufferedInputStream(fis));
+        In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        Graph G = new Graph(dis);
+        Graph G = new Graph(in);
 
         Search search = new Search(G, s);
 
@@ -29,6 +28,6 @@ public class TestSearch {
              StdOut.print("NOT ");
          }
          StdOut.println("connected");
-         dis.close();
+         in.close();
     }
 }

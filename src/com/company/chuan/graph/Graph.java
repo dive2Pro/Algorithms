@@ -1,9 +1,9 @@
 package com.company.chuan.graph;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 
 import com.company.chuan.Bag;
+import com.company.chuan.In;
 
 /**
  * 相邻 - 两个顶点通过一条边相连时, 称这两个顶点是相邻的
@@ -13,6 +13,7 @@ import com.company.chuan.Bag;
  * 路径 - u-v-w-x 环 - u-v-w-u
  */
 public class Graph {
+
     private final int V;
     private int E;
     private final Bag<Integer>[] adj;
@@ -21,17 +22,16 @@ public class Graph {
         this.V = V;
         adj = new Bag[V];
         for(int v = 0; v < V; v ++) {
-            adj[v] = new Bag<Integer>();
+            adj[v] = new Bag<>();
         }
     }
 
-    public Graph(final DataInputStream in) throws IOException {
+    public Graph(final In in) {
         this(in.readInt());
         final int E = in.readInt();
         for(int i = 0; i < E ; i ++) {
             addEdge(in.readInt(), in.readInt());
         }
-
     }
 
     /**

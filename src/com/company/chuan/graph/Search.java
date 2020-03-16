@@ -1,8 +1,10 @@
 package com.company.chuan.graph;
 
 public class Search {
-    public Search(Graph G, int s) {
+    private Graph G;
 
+    public Search(Graph G, int s) {
+        this.G = G;
     }
 
     /**
@@ -22,3 +24,4 @@ public class Search {
         return 0;
     }
 }
+
