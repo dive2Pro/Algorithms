@@ -1,7 +1,5 @@
 package com.company.chuan.graph;
 
-import java.io.IOException;
-
 import com.company.chuan.Bag;
 import com.company.chuan.In;
 
@@ -14,9 +12,9 @@ import com.company.chuan.In;
  */
 public class Graph {
 
-    private final int V;
+    private int V;
     private int E;
-    private final Bag<Integer>[] adj;
+    private Bag<Integer>[] adj;
 
     public Graph(final int V) {
         this.V = V;
