@@ -16,22 +16,16 @@ public class Digraph {
         }
     }
 
-
-
     public void addEdge( int v1, int v2) {
         adj[v1].add(v2);
     }
 
     public Iterable<Integer> adj(int v1 ) {
-
         return adj[v1];
     }
 
     public Digraph reserve() {
         Digraph digraph = new Digraph(V);
-        for(int i = adj.length - 1; i > -1 ; i --) {
-
-        }
 
         for(int i = 0 ; i < adj.length; i ++) {
             Bag<Integer> W = adj[i];
