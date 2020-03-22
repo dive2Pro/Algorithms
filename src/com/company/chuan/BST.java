@@ -46,7 +46,7 @@ public class BST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, V
         return node;
     }
 
-    private int size(Node node) {
+    int size(Node node) {
         if (node == null) {
             return 0;
         }

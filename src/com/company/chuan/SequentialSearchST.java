@@ -6,11 +6,11 @@ import java.util.ArrayList;
 /**
  * 无序链表
  */
-public class SequentialSearchST extends SortAbstract<String, Integer> {
+public class SequentialSearchST<Key extends Comparable<Key>, Value> extends SortAbstract<Key, Value> {
     private Node first;
 
     @Override
-    public void put(String key, Integer value) {
+    public void put(Key key, Value value) {
         for(Node x = first; x != null; x = x.next) {
             if(key.equals(x.key)) {
                 x.val = value;
@@ -21,7 +21,7 @@ public class SequentialSearchST extends SortAbstract<String, Integer> {
     }
 
     @Override
-    public Integer get(String key) {
+    public Value get(Key key) {
         for( Node x = first; x != null ; x = x.next) {
             if(key.equals(x.key)) {
                 return x.val;
@@ -52,13 +52,13 @@ public class SequentialSearchST extends SortAbstract<String, Integer> {
     }
 
     @Override
-    public String min() {
+    public Key min() {
         Node min = null;
         for( Node x = first; x != null ; x = x.next) {
             if(min == null) {
                 min = x;
             } else {
-                if(min.val > x.val) {
+                if(first.key.compareTo(min.key) < 0) {
                     min = x;
                 }
             }
@@ -67,13 +67,13 @@ public class SequentialSearchST extends SortAbstract<String, Integer> {
     }
 
     @Override
-    public String max() {
+    public Key max() {
         Node max = null;
         for( Node x = first; x != null ; x = x.next) {
             if(max == null) {
                 max = x;
             } else {
-                if(max.val < x.val) {
+                if(x.key.compareTo(max.key) > 0) {
                     max = x;
                 }
             }
@@ -82,25 +82,25 @@ public class SequentialSearchST extends SortAbstract<String, Integer> {
     }
 
     @Override
-    public String floor(String key) {
+    public Key floor(Key key) {
 
         return null;
     }
 
     @Override
-    public String ceiling(String key) {
+    public Key ceiling(Key key) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public int rank(String key) {
-        int max = get(key);
+    public int rank(Key key) {
+        Value max = get(key);
         int count = 0;
         for( Node x = first; x != null ; x = x.next ) {
             if(key.equals(x.key)) {
                 continue;
-            } else if(x.val <= max) {
+            } else if(x.key == max) {
                 count ++;
             }
         }
@@ -108,19 +108,11 @@ public class SequentialSearchST extends SortAbstract<String, Integer> {
     }
 
     @Override
-    public String select(int k) {
-
-
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Iterable<String> keys(String k1, String k2) {
-        String next = "";
-        ArrayList<String> keys = new ArrayList<>();
+    public Iterable<Key> keys(Key k1, Key k2) {
+        Key next = null;
+        ArrayList<Key> keys = new ArrayList<>();
         for( Node x = first; x != null ; x = x.next) {
-            if(next != "") {
+            if(null != next) {
                 keys.add(x.key);
                 if(next.equals(x.key)) {
                     break;
@@ -134,6 +126,12 @@ public class SequentialSearchST extends SortAbstract<String, Integer> {
             }
         }
         return keys;
+    }
+
+    @Override
+    public Key select(int k) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 
