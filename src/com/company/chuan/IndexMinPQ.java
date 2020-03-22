@@ -35,7 +35,7 @@ public class IndexMinPQ<Item extends Comparable<Item>> {
     int N = 0;
     private Item[] items;
 
-    IndexMinPQ(int size) {
+    public IndexMinPQ(int size) {
         sort = new int[size];
         indexs = new int[size];
         items = (Item[]) new Comparable[size];
