@@ -14,11 +14,11 @@ public abstract class UF {
         }
     }
 
-    abstract void union(int p, int q) ;
+    public  abstract void union(int p, int q) ;
 
-    abstract int find(int p);
+    public abstract int find(int p);
 
-    boolean connected(int p, int q) {
+    public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
 
