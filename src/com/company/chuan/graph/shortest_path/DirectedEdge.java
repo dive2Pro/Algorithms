@@ -1,6 +1,6 @@
 package com.company.chuan.graph.shortest_path;
 
-public class DirectedEdge {
+public class DirectedEdge implements Comparable<DirectedEdge> {
     private double weight;
     private int v;
     private int w;
@@ -25,4 +25,14 @@ public class DirectedEdge {
         return w;
     }
 
+    @Override
+    public int compareTo(DirectedEdge directedEdge) {
+       if( weight() > directedEdge.weight()) {
+           return 1;
+       } else if(weight() < directedEdge.weight()){
+           return -1;
+       }
+
+       return 0;
+    }
 }

@@ -1,14 +1,16 @@
 package com.company.chuan.graph.shortest_path;
 
 import com.company.chuan.Bag;
+import com.company.chuan.graph.Digraph;
 
-public class EdgeWeightDigraph {
+public class EdgeWeightDigraph extends Digraph {
     private int V;
     private int E;
 
     private Bag<DirectedEdge>[] adj;
 
     EdgeWeightDigraph(int V) {
+        super(V);
         this.V = V;
         this.E = 0;
 
@@ -20,11 +22,11 @@ public class EdgeWeightDigraph {
 
     }
 
-    int V() {
+    public int V() {
         return V;
     }
 
-    int E() {
+    public int E() {
         return E;
     }
 
@@ -33,7 +35,7 @@ public class EdgeWeightDigraph {
         E++;
     }
 
-    Iterable<DirectedEdge> adj(int v) {
+    public Iterable adj(int v) {
         return adj[v]       ;
     }
 
