@@ -54,7 +54,7 @@ public class DirectedCycle {
         onStack[v] = false;
     }
 
-    private boolean hasCycle() {
+    public boolean hasCycle() {
         return cycle != null;
     }
 
