@@ -34,8 +34,12 @@ public class BellmanFord {
 
     }
 
-    private boolean hasNegativeCycle() {
+    public boolean hasNegativeCycle() {
         return cycle != null;
+    }
+
+    public Iterable<DirectedEdge> negativeCycle() {
+        return cycle;
     }
 
     private void relax(EdgeWeightDigraph G, int v) {
