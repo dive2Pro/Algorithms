@@ -66,7 +66,7 @@ public class Alphabet {
      * @return 表示一个索引所需的位数
      */
     int lgR() {
-
+        return 0;
     }
 
     /**

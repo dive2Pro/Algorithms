@@ -7,7 +7,7 @@ public class QuickFind extends UF{
     }
 
     @Override
-    void union(int p, int q) {
+    public void union(int p, int q) {
 
         int vp = find(p);
         int vq = find(q);
@@ -23,7 +23,7 @@ public class QuickFind extends UF{
     }
 
     @Override
-    int find(int p) {
+    public int find(int p) {
         return id[p];
     }
 }
