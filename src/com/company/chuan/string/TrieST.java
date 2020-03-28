@@ -13,7 +13,6 @@ public class TrieST<Value> extends StringST<Value> {
 
         public Node() {
             next = new Node[R];
-
         }
     }
 
@@ -75,7 +74,8 @@ public class TrieST<Value> extends StringST<Value> {
 
     @Override
     String longestPrefixOf(String s) {
-        return collect(root, s, 0, s.length() - 1).pop();
+        int d = search(root, s, 0, 0);
+        return s.substring(0, d);
     }
 
     @Override
@@ -85,11 +85,7 @@ public class TrieST<Value> extends StringST<Value> {
 
     @Override
     Iterable<String> keysThatMatch(String s) {
-        return keysThatMatch(s, s.length());
-    }
-
-    private Stack<String> keysThatMatch(String s, int size) {
-        return collect(root, s, 0, Integer.MAX_VALUE);
+        return collect(root, s, 0);
     }
 
     @Override
@@ -98,7 +94,7 @@ public class TrieST<Value> extends StringST<Value> {
             return 0;
         }
 
-        return collect(root, "", 0, Integer.MAX_VALUE).size();
+        return collect(root, "", 0).size();
     }
 
 
@@ -107,14 +103,12 @@ public class TrieST<Value> extends StringST<Value> {
         return keysWithPrefix("");
     }
 
-    private Stack<String> collect(Node x, String key, int d, int max) {
-        return collect(x, key, d, new Stack<>(), max);
+    private Stack<String> collect(Node x, String key, int d) {
+        return collect(x, key, d, new Stack<>());
     }
 
-    private Stack<String> collect(Node x, String key, int d, Stack<String> stack, int max) {
-        if(d > max) {
-            return stack;
-        }
+    private Stack<String> collect(Node x, String key, int d, Stack<String> stack) {
+        int v = key.charAt(d);
         for (int i = 0; i < x.next.length; i++) {
             Node n = x.next[i];
             if (n == null) {
@@ -123,7 +117,6 @@ public class TrieST<Value> extends StringST<Value> {
 
             if (!key.equals("")) {
                 if (key.length() > d) {
-                    int v = key.charAt(d);
                     if (v != OMIT && v != i) {
                         continue;
                     }
@@ -135,9 +128,45 @@ public class TrieST<Value> extends StringST<Value> {
             }
 
 
-            collect(n, key, d + 1, stack, max);
+            collect(n, key, d + 1, stack);
         }
         return stack;
+    }
+
+    /**
+     *  思路是: length 只在 x.val 有值时被修改
+     *         search 会逐个根据字符串的位置进行检索,方向是固定的
+     */
+    private int search(Node x, String s, int d, int length) {
+        if(x == null) return length;
+        if(x.val != null) length = d;
+        if(d == s.length()) return length;
+        char c = s.charAt(d);
+        return search(x.next[c], s, d + 1, length);
+    }
+
+    public void delete(String key) {
+        root = delete(root, key, 0);
+    }
+
+    private Node delete(Node x, String s, int d) {
+
+        if(x == null) return null;
+
+
+        if( x.val != null && d == s.length()) {
+            // 完全匹配时删除这个
+            x.val = null;
+        } else {
+            int c = s.charAt(d);
+            x.next[c] = delete(x.next[c], s, d + 1);
+        }
+
+        for(int i = 0; i < R ; i ++) {
+            if(x.next[i] != null) return x;
+        }
+
+        return null;
     }
 
 
