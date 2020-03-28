@@ -1,7 +1,7 @@
 package com.company.chuan.string;
 
 public abstract class  StringST<Value> {
-    void put(String key, Value val){};
+    abstract void put(String key, Value val);
     abstract Value get(String key);
     void delete(String key){}
     abstract boolean contains(String key);
