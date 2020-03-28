@@ -12,7 +12,7 @@ public class Alphabet {
     public static String PROTEIN = "ACDEFGHIKLMNPQRSTVWY"; //  蛋白质
     public static String LOWERCASE = "abcdefghijklmnopqrstuvwxyz"; //   小写字母
     public static String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //   大写字母
-    public static String BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; //   base64
+    public static String BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/."; //   base64
     public static String ASCII = ""; //    ASCII
     public static String EXTENDER_ASCII = ""; // 扩展 ASCII
     public static String UNICODE16 = ""; // Unicode 字符集
