@@ -9,7 +9,7 @@ public class EdgeWeightDigraph extends Digraph {
 
     private Bag<DirectedEdge>[] adj;
 
-    EdgeWeightDigraph(int V) {
+    public EdgeWeightDigraph(int V) {
         super(V);
         this.V = V;
         this.E = 0;
@@ -26,7 +26,7 @@ public class EdgeWeightDigraph extends Digraph {
         return V;
     }
 
-    public int E() {
+    int E() {
         return E;
     }
 
