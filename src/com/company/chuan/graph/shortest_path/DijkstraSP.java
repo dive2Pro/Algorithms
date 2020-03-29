@@ -26,7 +26,8 @@ public class DijkstraSP {
     }
 
     private void relax(EdgeWeightDigraph G, int v) {
-        for(DirectedEdge e : G.adj(v)) {
+        for(Object obj : G.adj(v)) {
+            DirectedEdge e = (DirectedEdge) obj;
             int w = e.to();
             if( distTo[w] > distTo[v] + e.weight() ) {
                 distTo[w] = distTo[v] +e.weight();
